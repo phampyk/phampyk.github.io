@@ -1,3 +1,10 @@
+/* Animated border property */
+@property --a {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
 /* Catppuccin Mocha Colors */
 :root {
     --base: #1e1e2e;
@@ -51,13 +58,13 @@ header {
 
 .logo {
     font-family: "Fleur De Leah", cursive;
-    font-size: 2.5rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--pink), var(--mauve));
+    font-weight: 400;
+    font-style: normal;
+    font-size: 4rem;
+    background: linear-gradient(135deg, var(--pink), var(--red));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: -0.02em;
 }
 
 .tagline {
@@ -111,7 +118,7 @@ section {
 
 h2 {
     font-size: 1.75rem;
-    font-weight: 600;
+    font-weight: 00;
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
@@ -133,18 +140,46 @@ h2::before {
     gap: 1.5rem;
 }
 
+@keyframes border-spin {
+    to { --a: 360deg; }
+}
+
 .card {
+    box-sizing: border-box;
     background: var(--base);
-    border: 1px solid var(--surface0);
+    border: solid 3px var(--surface0);
     border-radius: 16px;
+    overflow: visible;
     padding: 1.5rem;
+    position: relative;
+    z-index: 1;
     transition: all 0.3s ease;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 18px;
+    padding: 3px;
+    background: conic-gradient(from var(--a), #f5c2e7, #f38ba8, #eba0ac, #fab387, #f9e2af, #a6e3a1, #94e2d5, #89dceb, #74c7ec, #89b4fa, #b4befe, #cba6f7, #f5c2e7);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: border-spin 5s linear infinite;
+    z-index: -1;
 }
 
 .card:hover {
     transform: translateY(-4px);
-    border-color: var(--surface1);
+    border-color: transparent;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover::before {
+    opacity: 1;
 }
 
 .card h3 {
@@ -152,6 +187,13 @@ h2::before {
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--lavender);
+}
+
+.card img{
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    object-fit: cover;
 }
 
 .card p {
@@ -243,7 +285,7 @@ footer a {
 /* Responsive */
 @media (max-width: 768px) {
     .logo {
-        font-size: 2rem;
+        font-size: 3rem;
     }
 
     nav ul {
