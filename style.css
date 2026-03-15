@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: 'Nightcore';
-  src: url('https://phampyk.github.io/assets/Nightcore.ttf') format('truetype');
+  src: url('assets/Nightcore.ttf') format('truetype');
 }
 @property --a { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
