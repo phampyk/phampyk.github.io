@@ -1,111 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phampyk - Github</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fleur+De+Leah&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>phampyk</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Fredoka+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="logo">Phampyk's Treasure Trove</div>
-        <p class="tagline">Themes, extensions & prompts for SillyTavern</p>
-    </header>
+<canvas id="bgcanvas" aria-hidden="true"></canvas>
+<a href="#main-content" class="skip-link">Skip to content</a>
+<div class="page">
 
-    <nav>
-        <ul>
-            <li><a href="#themes">Themes</a></li>
-            <li><a href="#extensions">Extensions</a></li>
-            <li><a href="#prompts">Prompts</a></li>
-            <li><a href="#links">Links</a></li>
-        </ul>
-    </nav>
+  <div class="banner">
+    <div class="banner-bg"></div>
+    <div id="skull-wrap"></div>
+    <div class="banner-title" id="banner-title">(Phampyk)<div class="vhs-a" id="bt-vhs-a">(Phampyk)</div><div class="vhs-b" id="bt-vhs-b">(Phampyk)</div></div>
+  </div>
 
-    <main>
-        <section id="themes">
-            <h2>Themes</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Purple Clouds</h3>
-                    <img src="assets/purple-clouds.png"/><br>
-                    <span class="tag">Purple</span>
-                    <span class="tag">Light</span>
-                    <p>A SillyTavern theme inspired by Sailor Moon and purple colours</p>
-                    <div class="card-meta">
-                        <span>v2.0</span>
-                    </div>
-                    <br>
-                    <a href="https://github.com/phampyk/SillyTavern-PurpleCloudsTheme" class="btn">View on GitHub</a>
-                </div>
-                
-                <div class="card">
-                    <h3>Catppuccin Nights</h3>
-                    <span class="tag">Catppuccin</span>
-                    <span class="tag">Dark</span>
-                    <p>Dark SillyTavern Theme based on Catppuccin Mocha colours</p>
-                    <div class="card-meta">
-                        <span>TBD</span>
-                    </div>
-                </div>
+  <div class="namebar">
+    <div class="name-title">treasure trove ♡</div>
+    <div class="name-socials">
+      <a href="https://github.com/Phampyk" target="_blank" title="GitHub" aria-label="GitHub profile">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+      <a href="https://phampyk.com" target="_blank" title="Website" aria-label="Personal website">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48" fill="none"><g stroke="currentColor" stroke-width="3"><path stroke-linejoin="round" d="M3 24a21 21 0 1 0 42 0a21 21 0 1 0-42 0"/><path stroke-linejoin="round" d="M15 24a9 21 0 1 1 18 0a9 21 0 1 1-18 0"/><path stroke-linecap="round" d="M4.5 31h39m-39-14h39"/></g></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="dots"></div>
+
+  <main id="main-content">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="go('home',this)" aria-current="page">✦ home</button>
+      <button class="tab-btn" onclick="go('sillytavern',this)">SillyTavern</button>
+      <button class="tab-btn" onclick="go('olivetin',this)">OliveTin</button>
+      <button class="tab-btn" onclick="go('icons',this)">Icons</button>
+    </div>
+    <select class="tab-select" onchange="goSelect(this)" aria-label="Navigation">
+      <option value="home">✦ home</option>
+      <option value="sillytavern">SillyTavern</option>
+      <option value="olivetin">OliveTin</option>
+      <option value="icons">Icons</option>
+    </select>
+
+    <!-- HOME -->
+    <div class="tab-panel active" id="p-home">
+      <div class="sh"><h2>home</h2><div class="sh-line"></div></div>
+      <div class="home-wrap">
+        <div class="home-avatar-ph">[ avatar ]</div>
+        <div>
+          <div class="home-name">phampyk</div>
+          <div class="home-sub">themes · extensions · icons</div>
+          <div class="home-body">
+            making things for sillytavern.<br>
+            edinburgh. perpetually customising things that already work.<br>
+            catppuccin mocha everything. cats and skulls and things that go brrr.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SILLYTAVERN -->
+    <div class="tab-panel" id="p-sillytavern">
+      <div class="sh"><h2>themes</h2><div class="sh-line"></div></div>
+      <div class="gallery">
+        <div class="gc-wrap">
+          <div class="gc">
+            <div class="gc-img-wrap"><img class="gc-img" src="https://phampyk.github.io/assets/purple-clouds.png" alt="Purple Clouds theme screenshot" onerror="this.parentElement.innerHTML='<div class=gc-empty>🌸</div>'" alt="Purple Clouds"></div>
+            <div class="gc-body">
+              <div class="gc-name">Purple Clouds</div>
+              <div class="gc-desc">Inspired by Sailor Moon and purple colours.</div>
+              <div class="gc-foot"><a class="gc-link" href="https://github.com/phampyk/SillyTavern-PurpleCloudsTheme" target="_blank">github ↗</a></div>
             </div>
-        </section>
-
-        <section id="extensions">
-            <h2>Extensions</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Avatar Banner</h3>
-                    <img src="assets/avatar-banner.png" /><br>
-                    <span class="tag">UI</span>
-                    <span class="tag">Visual</span>
-                    <p>Add custom banner images to character avatars in chat. Supports multiple themes and styling options.</p>
-                    <div class="card-meta">
-                        <span>v5.1</span>
-                    </div>
-                    <br>
-                    <a href="https://github.com/Phampyk/SillyTavern-AvatarBanner" class="btn">View on GitHub</a>
-                </div>
-                
-                <div class="card">
-                    <h3>Character Name</h3>
-                    <img src="assets/character-name.png"/><br>
-                    <span class="tag">UI</span>
-                    <span class="tag">Utility</span>
-                    <p>Customize character names in chat and {{char}} macro.</p>
-                    <div class="card-meta">
-                        <span>v1.0</span>
-                    </div>
-                    <br>
-                    <a href="https://github.com/phampyk/SillyTavern-CharacterName" class="btn">View on GitHub</a>
-                </div>
+          </div>
+        </div>
+        <div class="gc-wrap">
+          <div class="gc">
+            <div class="gc-empty">🌙</div>
+            <div class="gc-body">
+              <div class="gc-name">Catppuccin Nights</div>
+              <div class="gc-desc">Dark theme based on Catppuccin Mocha colours.</div>
+              
             </div>
-        </section>
+          </div>
+        </div>
+      </div>
 
-        <section id="prompts">
-            <h2>Prompts</h2>
-        </section>
-
-        <section id="links">
-            <h2>Links</h2>
-            <div class="links-grid">
-                <a href="https://github.com/Phampyk" class="btn btn-primary">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
-                </a>
-                <a href="https://phampyk.com" class="btn btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="3"><path stroke-linejoin="round" d="M3 24a21 21 0 1 0 42 0a21 21 0 1 0-42 0"/><path stroke-linejoin="round" d="M15 24a9 21 0 1 1 18 0a9 21 0 1 1-18 0"/><path stroke-linecap="round" d="M4.5 31h39m-39-14h39"/></g></svg>
-                    Website
-                </a>
+      <div class="sh"><h2>extensions</h2><div class="sh-line"></div></div>
+      <div class="gallery">
+        <div class="gc-wrap">
+          <div class="gc">
+            <div class="gc-img-wrap"><img class="gc-img" src="https://phampyk.github.io/assets/avatar-banner.png" alt="Avatar Banner extension screenshot" onerror="this.parentElement.innerHTML='<div class=gc-empty>🖼</div>'" alt="Avatar Banner"></div>
+            <div class="gc-body">
+              <div class="gc-name">Avatar Banner</div>
+              <div class="gc-desc">Add custom banner images to character avatars in chat.</div>
+              <div class="gc-foot"><a class="gc-link" href="https://github.com/Phampyk/SillyTavern-AvatarBanner" target="_blank">github ↗</a></div>
             </div>
-        </section>
-    </main>
+          </div>
+        </div>
+        <div class="gc-wrap">
+          <div class="gc">
+            <div class="gc-img-wrap"><img class="gc-img" src="https://phampyk.github.io/assets/character-name.png" alt="Character Name extension screenshot" onerror="this.parentElement.innerHTML='<div class=gc-empty>✏️</div>'" alt="Character Name"></div>
+            <div class="gc-body">
+              <div class="gc-name">Character Name</div>
+              <div class="gc-desc">Customize character names in chat and the {{char}} macro.</div>
+              <div class="gc-foot"><a class="gc-link" href="https://github.com/phampyk/SillyTavern-CharacterName" target="_blank">github ↗</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <footer>
-        <img src="assets/Cat Computer Sticker by Fern.gif" height="100rem"/>
-        <p>Made with <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 14 14"><path fill="var(--red)" fill-rule="evenodd" d="M4.024 1.085c.98.071 2.002.55 2.98 1.517c.978-.968 1.999-1.445 2.978-1.514c1.106-.079 2.083.368 2.79 1.073c1.39 1.386 1.827 3.895.102 5.62l-.018.017l-5.516 4.997a.5.5 0 0 1-.672 0L1.152 7.798l-.018-.017c-1.734-1.734-1.3-4.243.095-5.628c.709-.704 1.688-1.148 2.795-1.068" clip-rule="evenodd"/></svg> by <a href="https://github.com/Phampyk">phampyk</a></p>
-    </footer>
+      <div class="sh"><h2>prompts</h2><div class="sh-line"></div></div>
+      <div class="soon"><span>💀</span>coming soon.</div>
+    </div>
+
+    <!-- OLIVETIN -->
+    <div class="tab-panel" id="p-olivetin">
+      <div class="sh"><h2>olivetin themes</h2><div class="sh-line"></div></div>
+      <div class="gallery">
+        <div class="gc-wrap">
+          <div class="gc">
+            <div class="gc-empty">🫒</div>
+            <div class="gc-body">
+              <div class="gc-name">Olive</div>
+              <div class="gc-desc">A clean olive-toned theme for OliveTin.</div>
+              <div class="gc-foot"><a class="gc-link" href="https://github.com/phampyk/olive" target="_blank">github ↗</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="gc-wrap">
+          <div class="gc">
+            <div class="gc-empty">🌸</div>
+            <div class="gc-body">
+              <div class="gc-name">Blush</div>
+              <div class="gc-desc">A soft pink blush theme for OliveTin.</div>
+              <div class="gc-foot"><a class="gc-link" href="https://github.com/phampyk/blush" target="_blank">github ↗</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="gc-wrap">
+          <div class="gc">
+            <div class="gc-empty">🌙</div>
+            <div class="gc-body">
+              <div class="gc-name">Catppuccin Mocha</div>
+              <div class="gc-desc">Catppuccin Mocha palette for OliveTin.</div>
+              <div class="gc-foot"><a class="gc-link" href="https://github.com/phampyk/catppuccin-mocha-olivetin" target="_blank">github ↗</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ICONS -->
+    <div class="tab-panel" id="p-icons">
+      <div class="sh"><h2>icons</h2><div class="sh-line"></div></div>
+      <div class="gallery">
+        <div class="gc-wrap">
+          <div class="gc">
+            <div class="gc-empty" style="aspect-ratio:auto;padding:28px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;font-size:22px;">🗂 🎨 📁 🖼 💾 🔧 📦 🌐</div>
+            <div class="gc-body">
+              <div class="gc-name">Monochrome Dashboard Icons</div>
+              <div class="gc-desc">Monochrome SVG icons for dashboards and home servers.</div>
+              <div class="gc-foot"><a class="gc-link" href="https://github.com/phampyk/monochrome-dashboard-icons" target="_blank">github ↗</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <span class="foot-t">made with ♡ by <a href="https://phampyk.com" target="_blank">phampyk</a></span>
+    <div class="foot-gif"><img src="https://phampyk.github.io/assets/Cat%20Computer%20Sticker%20by%20Fern.gif" onerror="this.style.display='none'" alt=""></div>
+  </footer>
+
+</div>
+  <script src="script.js"></script>
 </body>
 </html>
