@@ -235,7 +235,7 @@ main{flex:1;padding:clamp(20px,3vw,40px) clamp(16px,5vw,52px);}
 /* HOME */
 .home-wrap{
   display:grid;
-  grid-template-columns:260px 1fr;
+  grid-template-columns:240px 1fr;
   gap:28px;
   align-items: end;
   max-width:700px;
