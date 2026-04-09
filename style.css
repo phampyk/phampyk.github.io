@@ -247,7 +247,7 @@ main{flex:1;padding:clamp(20px,3vw,40px) clamp(16px,5vw,52px);}
   aspect-ratio:3/4;
   background:var(--bg2);
   background-image: url("assets/src/picrew_avatar_1.png");
-  background-size: cover;
+  background-size: content;
   background-position: center;
   border:1px solid rgba(203,166,247,.2);
   border-radius:10px;
