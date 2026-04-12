@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lorebook → SillyTavern Converter</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<header>
+  <div class="title">Lorebook Converter</div>
+  <div class="subtitle">Array JSON → SillyTavern Format</div>
+  <div class="tag">v2.0 // ST Compatible</div>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <div class="card-label">01 // Paste JSON</div>
+    <textarea
+      class="paste-area"
+      id="pasteArea"
+      placeholder='Paste your lorebook JSON here...&#10;&#10;Expected: [ { "key": [...], "content": "...", ... }, ... ]'
+      spellcheck="false"
+    ></textarea>
+    <div class="paste-footer">
+      <div class="entry-count" id="entryCount">// <span>0</span> entries detected</div>
+      <button class="clear-btn" id="clearBtn">Clear</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">02 // Options</div>
+    <div class="options-grid">
+      <div class="option active" data-opt="matchWholeWords">
+        <div class="option-check"></div>
+        <div>
+          <div class="option-text">Match Whole Words</div>
+          <div class="option-desc">Preserve matchWholeWords field</div>
+        </div>
+      </div>
+      <div class="option active" data-opt="preserveDisabled">
+        <div class="option-check"></div>
+        <div>
+          <div class="option-text">Preserve Disabled</div>
+          <div class="option-desc">Keep entries with enabled: false</div>
+        </div>
+      </div>
+      <div class="option active" data-opt="autoSelective">
+        <div class="option-check"></div>
+        <div>
+          <div class="option-text">Auto Selective</div>
+          <div class="option-desc">Enable selective for secondary keys</div>
+        </div>
+      </div>
+      <div class="option active" data-opt="useProbability">
+        <div class="option-check"></div>
+        <div>
+          <div class="option-text">Use Probability</div>
+          <div class="option-desc">Always set useProbability: true</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">03 // Output</div>
+    <div class="filename-row">
+      <span class="filename-label">filename //</span>
+      <input class="filename-input" id="filenameInput" type="text" value="lorebook_sillytavern" spellcheck="false">
+      <span class="filename-ext">.json</span>
+    </div>
+    <button class="convert-btn" id="convertBtn" disabled>Convert &amp; Download</button>
+    <div class="log" id="log"></div>
+    <button class="download-btn" id="downloadBtn">⬇ Download Again</button>
+  </div>
+
+</div>
+
+<div class="footer">LOREBOOK CONVERTER // SILLYTAVERN COMPATIBLE // PASTE JSON TO BEGIN</div>
+
+<script src="converter.js"></script>
+</body>
+</html>
