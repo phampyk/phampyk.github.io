@@ -55,40 +55,121 @@ convertBtn.addEventListener('click', () => {
     return;
   }
 
-  const lorebook = { entries: {} };
+  const filename = document.getElementById('filenameInput').value.trim() || 'lorebook_sillytavern';
+  const lorebook = { name: filename, entries: {} };
   let skipped = 0, uid = 0;
 
   entries.forEach((entry, i) => {
     if (!opts.preserveDisabled && entry.enabled === false) { skipped++; return; }
+
+    // Shorthand for the extensions block (may or may not exist)
+    const ext = (entry.extensions && typeof entry.extensions === 'object') ? entry.extensions : {};
+
+    // Secondary keys — used for selective logic
     const hasSecondary = Array.isArray(entry.keysecondary) && entry.keysecondary.length > 0;
+
+    // comment: JanitorAI uses 'comment' as title in newer exports, 'name' in older ones
+    const comment = entry.comment || entry.name || '';
+
+    // order: top-level insertion_order wins; fallback to index-based spacing
+    const order = entry.insertion_order ?? (i * 100);
+
+    // position: top-level first, then extensions, default 0
+    const position = entry.position ?? ext.position ?? 0;
+
+    // disable: entry is disabled if enabled is explicitly false
+    const disable = entry.enabled === false;
+
+    // probability: top-level wins, extensions as fallback
+    const probability = entry.probability ?? ext.probability ?? 100;
+
+    // depth: top-level wins, extensions as fallback
+    const depth = entry.depth ?? ext.depth ?? 4;
+
+    // group fields: top-level wins, extensions as fallback
+    const group = entry.group ?? ext.group ?? '';
+    const groupOverride = entry.groupOverride ?? ext.group_override ?? false;
+    const groupWeight = entry.groupWeight ?? ext.group_weight ?? 100;
+
+    // scan depth: top-level wins, extensions as fallback
+    const scanDepth = entry.scanDepth ?? ext.scan_depth ?? null;
+
+    // matchWholeWords: top-level wins, extensions as fallback; option toggle can override to null
+    const matchWholeWords = opts.matchWholeWords
+      ? (entry.matchWholeWords ?? ext.match_whole_words ?? null)
+      : null;
+
+    // caseSensitive: ST uses null as default (not false)
+    const caseSensitive = entry.case_sensitive ?? ext.case_sensitive ?? null;
+
+    // role: top-level wins, extensions as fallback
+    const role = entry.role ?? ext.role ?? null;
+
+    // automationId: extensions field maps to automation_id
+    const automationId = entry.automationId ?? ext.automation_id ?? '';
+
+    // recursion fields — only exist in extensions in JanitorAI
+    const excludeRecursion = ext.exclude_recursion ?? false;
+    const preventRecursion = ext.prevent_recursion ?? false;
+    const delayUntilRecursion = ext.delay_until_recursion ?? false;
+
+    // budget/sticky/cooldown/delay — only exist in extensions
+    const ignoreBudget = ext.ignore_budget ?? false;
+    const sticky = ext.sticky ?? 0;
+    const cooldown = ext.cooldown ?? 0;
+    const delay = ext.delay ?? 0;
+
+    // match* fields — JanitorAI has these in extensions, default false
+    const matchPersonaDescription = ext.match_persona_description ?? false;
+    const matchCharacterDescription = ext.match_character_description ?? false;
+    const matchCharacterPersonality = ext.match_character_personality ?? false;
+    const matchCharacterDepthPrompt = ext.match_character_depth_prompt ?? false;
+    const matchScenario = ext.match_scenario ?? false;
+    const matchCreatorNotes = ext.match_creator_notes ?? false;
+
     lorebook.entries[String(uid)] = {
       uid,
       key: entry.key || [],
       keysecondary: entry.keysecondary || [],
-      comment: entry.name || entry.comment || '',
+      comment,
       content: entry.content || '',
       constant: entry.constant || false,
-      selective: opts.autoSelective ? hasSecondary : false,
-      selectiveLogic: entry.selectiveLogic || 0,
-      addMemo: true,
-      order: entry.insertion_order || i * 100,
-      position: 0,
-      disable: !(entry.enabled !== false),
-      excludeRecursion: false,
-      probability: entry.probability ?? 100,
-      useProbability: opts.useProbability,
-      depth: 4,
-      group: '',
-      groupOverride: false,
-      groupWeight: entry.groupWeight || 100,
-      scanDepth: null,
-      caseSensitive: entry.case_sensitive || false,
-      matchWholeWords: opts.matchWholeWords ? (entry.matchWholeWords ?? null) : null,
-      useGroupScoring: false,
-      automationId: '',
-      role: null,
       vectorized: false,
-      displayIndex: uid
+      selective: opts.autoSelective ? hasSecondary : false,
+      selectiveLogic: entry.selectiveLogic ?? ext.selectiveLogic ?? 0,
+      addMemo: true,
+      order,
+      position,
+      disable,
+      ignoreBudget,
+      excludeRecursion,
+      preventRecursion,
+      matchPersonaDescription,
+      matchCharacterDescription,
+      matchCharacterPersonality,
+      matchCharacterDepthPrompt,
+      matchScenario,
+      matchCreatorNotes,
+      delayUntilRecursion,
+      probability,
+      useProbability: opts.useProbability,
+      depth,
+      outletName: '',
+      group,
+      groupOverride,
+      groupWeight,
+      scanDepth,
+      caseSensitive,
+      matchWholeWords,
+      useGroupScoring: null,
+      automationId,
+      role,
+      sticky,
+      cooldown,
+      delay,
+      triggers: [],
+      displayIndex: uid,
+      characterFilter: { isExclude: false, names: [], tags: [] }
     };
     uid++;
   });
