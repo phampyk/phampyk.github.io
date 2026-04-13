@@ -10,7 +10,7 @@ document.querySelectorAll('.option').forEach(el => {
 });
 
 const pasteArea = document.getElementById('pasteArea');
-const entryCountSpan = document.querySelector('#entryCount span');
+const entryCountSpan = document.getElementById('entryCountNum');
 const convertBtn = document.getElementById('convertBtn');
 
 pasteArea.addEventListener('input', () => {
@@ -103,7 +103,9 @@ convertBtn.addEventListener('click', () => {
     const caseSensitive = entry.case_sensitive ?? ext.case_sensitive ?? null;
 
     // role: top-level wins, extensions as fallback
-    const role = entry.role ?? ext.role ?? null;
+    // JanitorAI uses 0 to mean "no role", ST uses null
+    const rawRole = entry.role ?? ext.role ?? null;
+    const role = rawRole === 0 ? null : rawRole;
 
     // automationId: extensions field maps to automation_id
     const automationId = entry.automationId ?? ext.automation_id ?? '';
